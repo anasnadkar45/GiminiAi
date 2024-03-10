@@ -4,8 +4,12 @@ import { Context } from '../../context/Context';
 
 const Sidebar = () => {
     const [isExtended, setIsExtended] = useState(false);
-    const { onSent, prevPrompts, setRecentPrompt } = useContext(Context)
+    const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context)
 
+    const loadPrompt = async (prompt) => {
+        setRecentPrompt(prompt);
+        await onSent(prompt);
+    }
     return (
         // sidebar
         <div className='min-h-[100vh] inline-flex flex-col justify-between bg-[#f0f4f9] py-[25px] px-[15px] '>
@@ -16,7 +20,7 @@ const Sidebar = () => {
                 </div>
 
                 {/* new chat button */}
-                <div className='w-fit flex items-center py-4 px-5 bg-[#e6eaf1] rounded-full gap-6 text-lg text-gray-500 cursor-pointer'>
+                <div onClick={()=> newChat()} className='w-fit flex items-center py-4 px-5 bg-[#e6eaf1] rounded-full gap-6 text-lg text-gray-500 cursor-pointer'>
                     <img src={assets.plus_icon} alt="" className='w-[20px]' />
                     {
                         isExtended ? (<p className=''>New Chat</p>) : (null)
@@ -29,10 +33,7 @@ const Sidebar = () => {
                             <p>Recent</p>
                             {
                                 prevPrompts.map((item, index) => (
-                                    <div onClick={() => {
-                                        setRecentPrompt(index)
-                                        onSent()
-                                    }} className='flex items-center py-[15px] pl-[15px] pr-[40px] gap-4 text-sm text-slate-700 cursor-pointer'>
+                                    <div onClick={() => loadPrompt(item)} className='flex items-center py-[15px] pl-[15px] pr-[40px] gap-4 text-sm text-slate-700 cursor-pointer'>
                                         <img src={assets.message_icon} alt="" className='w-[25px] text-gray-500' />
                                         <p>{item.slice(0,18)}...</p>
                                     </div>
