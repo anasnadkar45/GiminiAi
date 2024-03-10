@@ -24,7 +24,7 @@ const Sidebar = () => {
                     {
                         isExtended ? (<div>
                             <p>Recent</p>
-                            <div className='flex items-center py-[15px] pl-[15px] pr-[40px] gap-4 text-lg text-slate-700'>
+                            <div className='flex items-center py-[15px] pl-[15px] pr-[40px] gap-4 text-sm text-slate-700'>
                                 <img src={assets.message_icon} alt="" className='w-[25px] text-gray-500' />
                                 <p>What is react...</p>
                             </div>

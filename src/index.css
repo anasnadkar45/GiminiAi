@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Wallpoet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Outfit:wght@100..900&family=Wallpoet&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,12 +7,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Madimi One;
+  font-family: Outfit;
   font-weight: 100;
   font-size: medium;
+  caret-color: transparent;
 }
 
 #root{
   min-height: 100vh;
   min-width: 100vw;
+}
+
+input{
+  caret-color: black;
 }
