@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Wallpoet&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Madimi One;
+  font-weight: 100;
+  font-size: medium;
+}
+
+#root{
+  min-height: 100vh;
+  min-width: 100vw;
+}
