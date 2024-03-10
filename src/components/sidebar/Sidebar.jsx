@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../../assets/assets'
+import { Context } from '../../context/Context';
 
 const Sidebar = () => {
     const [isExtended, setIsExtended] = useState(false);
+    const { onSent, prevPrompts, setRecentPrompt } = useContext(Context)
+
     return (
         // sidebar
         <div className='min-h-[100vh] inline-flex flex-col justify-between bg-[#f0f4f9] py-[25px] px-[15px] '>
@@ -24,10 +27,18 @@ const Sidebar = () => {
                     {
                         isExtended ? (<div>
                             <p>Recent</p>
-                            <div className='flex items-center py-[15px] pl-[15px] pr-[40px] gap-4 text-sm text-slate-700'>
-                                <img src={assets.message_icon} alt="" className='w-[25px] text-gray-500' />
-                                <p>What is react...</p>
-                            </div>
+                            {
+                                prevPrompts.map((item, index) => (
+                                    <div onClick={() => {
+                                        setRecentPrompt(index)
+                                        onSent()
+                                    }} className='flex items-center py-[15px] pl-[15px] pr-[40px] gap-4 text-sm text-slate-700 cursor-pointer'>
+                                        <img src={assets.message_icon} alt="" className='w-[25px] text-gray-500' />
+                                        <p>{item.slice(0,18)}...</p>
+                                    </div>
+                                ))
+                            }
+
                         </div>) : (null)
                     }
 

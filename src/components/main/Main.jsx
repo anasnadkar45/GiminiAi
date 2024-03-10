@@ -4,7 +4,7 @@ import { Context } from '../../context/Context'
 
 const Main = () => {
 
-    const {onSent, recentPrompt, showResult, loading, resultData, input, setInput } = useContext(Context)
+    const { onSent, recentPrompt, showResult, loading, resultData, input, setInput } = useContext(Context)
 
     return (
         <div className='w-full flex-1 min-h-[100vh] relative pb-[15vh]'>
@@ -15,33 +15,65 @@ const Main = () => {
 
             {/* main container */}
             <div className='max-w-[900px] m-auto'>
-                <div className=' my-[50px] text-[56px] text-[#c4c7c5] font-bold p-[20px]'>
-                    <p><span className='text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#4b90ff] from-20% to-[#ff5546]'>Hello, Dev.</span></p>
-                    <p className='text-5xl font-bold'>How can I help you today?</p>
-                </div>
-                {/* cards */}
-                <div className='grid grid-cols-4 gap-[15px] p-[15px]'>
-                    <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
-                        <p className='text-[#585858] text-[17px]'>Suggest beautiful places to see on an upcoming road trip</p>
-                        <img src={assets.compass_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
-                rounded-[20px] bottom-[10px] right-[10px]'/>
-                    </div>
-                    <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
-                        <p className='text-[#585858] text-[17px]'>Briefly summarize this concept: urban planning</p>
-                        <img src={assets.bulb_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
-                rounded-[20px] bottom-[10px] right-[10px]'/>
-                    </div>
-                    <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
-                        <p className='text-[#585858] text-[17px]'>Brainstorm team bonding activities for our work retreat</p>
-                        <img src={assets.message_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
-                rounded-[20px] bottom-[10px] right-[10px]'/>
-                    </div>
-                    <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
-                        <p className='text-[#585858] text-[17px]'>Tell me about React js and React native</p>
-                        <img src={assets.code_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
-                rounded-[20px] bottom-[10px] right-[10px]'/>
-                    </div>
-                </div>
+                {
+                    !showResult ? (<>
+                        <div className=' my-[50px] text-[56px] text-[#c4c7c5] font-bold p-[20px]'>
+                            <p><span className='text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#4b90ff] from-20% to-[#ff5546]'>Hello, Dev.</span></p>
+                            <p className='text-5xl font-bold'>How can I help you today?</p>
+                        </div>
+                        {/* cards */}
+                        <div className='grid grid-cols-4 gap-[15px] p-[15px]'>
+                            <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
+                                <p className='text-[#585858] text-[17px]'>Suggest beautiful places to see on an upcoming road trip</p>
+                                <img src={assets.compass_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
+                                  rounded-[20px] bottom-[10px] right-[10px]'/>
+                            </div>
+                            <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
+                                <p className='text-[#585858] text-[17px]'>Briefly summarize this concept: urban planning</p>
+                                <img src={assets.bulb_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
+                                  rounded-[20px] bottom-[10px] right-[10px]'/>
+                            </div>
+                            <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
+                                <p className='text-[#585858] text-[17px]'>Brainstorm team bonding activities for our work retreat</p>
+                                <img src={assets.message_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
+                                  rounded-[20px] bottom-[10px] right-[10px]'/>
+                            </div>
+                            <div className='h-[200px] p-[15px] bg-[#f0f4f9] hover:bg-[#dfe1e5] transition-all duration-300 rounded-md relative cursor-pointer'>
+                                <p className='text-[#585858] text-[17px]'>Tell me about React js and React native</p>
+                                <img src={assets.code_icon} alt="" className='w-[35px] p-[5px] absolute bg-[#fff] 
+                                  rounded-[20px] bottom-[10px] right-[10px]'/>
+                            </div>
+                        </div>
+                    </>) :
+                        (
+                            <div className='result max-h-[70vh] px-[5%] overflow-y-scroll'>
+                                {/* result title */}
+                                <div className='my-[40px] flex items-center gap-20'>
+                                    <img src={assets.user_icon} alt="" className='rounded-full w-[40px]' />
+                                    <p>{recentPrompt}</p>
+                                </div>
+
+                                {/* result data */}
+                                <div className='flex items-start gap-[20px]'>
+                                    <img className='w-[40px]' src={assets.gemini_icon} alt="" />
+                                    {
+                                        loading ? (
+                                            <div className='loader w-full flex-col space-y-2'>
+                                                <hr />
+                                                <hr />
+                                                <hr />
+                                            </div>
+                                        ) : (
+                                            <p className='text-[17px] font-[300] leading-6' 
+                                            dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                                        )
+                                    }
+
+                                </div>
+                            </div>
+                        )
+                }
+
 
                 {/* bottom */}
                 <div className='absolute bottom-0 w-full max-w-[900px] p-x[20px] m-auto'>
